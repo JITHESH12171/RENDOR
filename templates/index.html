@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>House Price Predictor</h1>
+            <p>Predict housing prices based on median income and other features.</p>
+        </div>
+    </header>
+    <main>
+        <section class="form-section">
+            <div class="container">
+                <h2>Enter Median Income</h2>
+                <form id="prediction-form">
+                    <label for="median-income">Median Income:</label>
+                    <input type="number" id="median-income" name="median_income" placeholder="Enter median income" required>
+                    <button type="submit">Predict</button>
+                </form>
+                <div id="result" class="result"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 House Price Predictor. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('prediction-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const medianIncome = document.getElementById('median-income').value;
+
+            if (medianIncome) {
+                // Simulate a prediction for demonstration purposes
+                const predictedPrice = (medianIncome * 50000).toFixed(2);
+                document.getElementById('result').innerText = `Predicted House Price: $${predictedPrice}`;
+            } else {
+                document.getElementById('result').innerText = "Please enter a valid income.";
+            }
+        });
+    </script>
+</body>
+</html>

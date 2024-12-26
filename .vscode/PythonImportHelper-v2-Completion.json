@@ -1,0 +1,88 @@
+[
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "render_template",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "jsonify",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "pickle",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pickle",
+        "description": "pickle",
+        "detail": "pickle",
+        "documentation": {}
+    },
+    {
+        "label": "home",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def home():\n    return render_template(\"index.html\")\n@app.route(\"/predict\", methods=[\"POST\"])\ndef predict():\n    try:\n        # Get median income from the form\n        median_income = float(request.form.get(\"median_income\"))\n        # Prepare data for prediction\n        input_data = np.array([[median_income]])\n        # Predict house price",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "predict",
+        "kind": 2,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "def predict():\n    try:\n        # Get median income from the form\n        median_income = float(request.form.get(\"median_income\"))\n        # Prepare data for prediction\n        input_data = np.array([[median_income]])\n        # Predict house price\n        predicted_price = model.predict(input_data)[0]\n        return jsonify({\n            \"status\": \"success\",",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "app = Flask(__name__)\n# Load the trained linear regression model\nmodel_path = \"model.pkl\"\nwith open(model_path, \"rb\") as file:\n    model = pickle.load(file)\n@app.route(\"/\")\ndef home():\n    return render_template(\"index.html\")\n@app.route(\"/predict\", methods=[\"POST\"])\ndef predict():",
+        "detail": "app",
+        "documentation": {}
+    },
+    {
+        "label": "model_path",
+        "kind": 5,
+        "importPath": "app",
+        "description": "app",
+        "peekOfCode": "model_path = \"model.pkl\"\nwith open(model_path, \"rb\") as file:\n    model = pickle.load(file)\n@app.route(\"/\")\ndef home():\n    return render_template(\"index.html\")\n@app.route(\"/predict\", methods=[\"POST\"])\ndef predict():\n    try:\n        # Get median income from the form",
+        "detail": "app",
+        "documentation": {}
+    }
+]
