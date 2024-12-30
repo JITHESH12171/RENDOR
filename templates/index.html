@@ -1,49 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>House Price Predictor</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>House Price Predictor</h1>
-            <p>Predict housing prices based on median income and other features.</p>
-        </div>
-    </header>
-    <main>
-        <section class="form-section">
-            <div class="container">
-                <h2>Enter Median Income</h2>
-                <form id="prediction-form">
-                    <label for="median-income">Median Income:</label>
-                    <input type="number" id="median-income" name="median_income" placeholder="Enter median income" required>
-                    <button type="submit">Predict</button>
-                </form>
-                <div id="result" class="result"></div>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 House Price Predictor. All rights reserved.</p>
-        </div>
-    </footer>
-    <script>
-        document.getElementById('prediction-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const medianIncome = document.getElementById('median-income').value;
+from flask import Flask, request, jsonify
+import joblib
+import numpy as np
 
-            if (medianIncome) {
-                // Simulate a prediction for demonstration purposes
-                const predictedPrice = (medianIncome * 50000).toFixed(2);
-                document.getElementById('result').innerText = `Predicted House Price: $${predictedPrice}`;
-            } else {
-                document.getElementById('result').innerText = "Please enter a valid income.";
-            }
-        });
-    </script>
-</body>
-</html>
+# Load the trained model
+model = joblib.load("house_price_model.pkl")  # Replace with your model file path
+
+app = Flask(__name__)
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json
+    median_income = data.get('median_income')
+    if median_income is None:
+        return jsonify({'error': 'Median income is required'}), 400
+    
+    try:
+        # Convert input to float and predict
+        median_income = float(median_income)
+        prediction = model.predict(np.array([[median_income]]))  # Adjust based on your model input shape
+        return jsonify({'predicted_price': prediction[0]})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
